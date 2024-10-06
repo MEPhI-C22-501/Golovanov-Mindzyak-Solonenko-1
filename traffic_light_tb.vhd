@@ -6,36 +6,30 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 entity traffic_light_tb is
 end traffic_light_tb;
 
-architecture Behavioral of traffic_light_tb is
+architecture traffic_light_tb_arch of traffic_light_tb is
 
-    signal i_clk : STD_LOGIC;
-    signal i_rst : STD_LOGIC;
-    signal o_green : STD_LOGIC;
-    signal o_yellow : STD_LOGIC;
-    signal o_red : STD_LOGIC;
+    signal clk : STD_LOGIC;
+    signal rst : STD_LOGIC;
+    signal green : STD_LOGIC;
+    signal yellow : STD_LOGIC;
+    signal red : STD_LOGIC;
     
-    component traffic_light is
-        Port ( i_clk, i_rst : in STD_LOGIC;
-		o_green, o_yellow, o_red : out STD_LOGIC);
-    end component;
-
-    component traffic_light_tester is 
-        Port ( i_clk, i_rst : out STD_LOGIC);
-    end component;
-
     begin
 
-        t1: traffic_light_tester port map(
-            i_clk => i_clk,
-            i_rst => i_rst
+        traffic_light_tester : entity work.traffic_light_tester(traffic_light_tester_arch) port map(
+            o_clk => clk,
+            o_rst => rst,
+            i_green => green,
+            i_yellow => yellow, 
+            i_red => red
         );
 
-        t2: traffic_light port map(
-            i_clk => i_clk,
-            i_rst => i_rst,
-            o_green => o_green,
-            o_yellow => o_yellow,
-            o_red => o_red
+        traffic_light : entity work.traffic_light(traffic_light_arch) port map(
+            i_clk => clk,
+            i_rst => rst,
+            o_green => green,
+            o_yellow => yellow,
+            o_red => red
         );
 
-end Behavioral;
+end traffic_light_tb_arch;
