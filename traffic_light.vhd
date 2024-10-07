@@ -34,31 +34,32 @@ begin
 				cnt_sec <= cnt_sec + 1;
 				cnt_quarter_sec <= "000";
 			end if;
-		end if;
 
-		if (cnt_sec < 5) then
-			green <= '0'; 
-			yellow <= '0';
-			red <= '1';
-		elsif (cnt_sec < 7) then
-			green <= '0'; 
-			yellow <= '1';
-			red <= '1';	
-		elsif (cnt_sec < 12) then
-			green <= '1'; 
-			yellow <= '0';
-			red <= '0';
-		elsif (cnt_sec < 14) then
-			if (cnt_quarter_sec(0) = '0') then
-				green <= '1';
+			if (cnt_sec < 5) then
+				green <= '0'; 
+				yellow <= '0';
+				red <= '1';
+			elsif (cnt_sec < 7) then
+				green <= '0'; 
+				yellow <= '1';
+				red <= '1';	
+			elsif (cnt_sec < 12) then
+				green <= '1'; 
+				yellow <= '0';
+				red <= '0';
+			elsif (cnt_sec < 14) then
+				if (cnt_quarter_sec(0) = '0') then
+					green <= '1';
+				else
+					green <= '0';
+				end if;
+				yellow <= '0';
+				red <= '0';
 			else
-				green <= '0';
+				cnt_sec <= "0000";
+				cnt_quarter_sec <= "000";
 			end if;
-			yellow <= '0';
-			red <= '0';
-		else
-			cnt_sec <= "0000";
-			cnt_quarter_sec <= "000";
+
 		end if;
 
 	end process; 
