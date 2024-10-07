@@ -15,12 +15,20 @@ architecture traffic_light_tester_arch of traffic_light_tester is
 
     constant clockPeriod : time := 1 sec;
     signal clk : std_logic := '0';
-    signal rst : std_logic := '0';
 
     begin
         
-        clk <= not clk after clockPeriod / 4;
+        clk <= not clk after clockPeriod / 10;
         o_clk <= clk;
-        o_rst <= rst;
-
+	
+	process 
+	begin
+		o_rst <= '0';
+		wait for clockPeriod * 24;
+		o_rst <= '1';
+		wait for clockPeriod * 3;
+		o_rst <= '0';
+		wait;
+	end process;
+		
 end traffic_light_tester_arch;
